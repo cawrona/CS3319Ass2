@@ -1,0 +1,57 @@
+-- PART 4
+
+
+DELETE FROM doctor WHERE licenseDate < '1965-01-01';
+	
+USE information_schema;
+
+SELECT 
+    table_name
+FROM
+    referential_constraints
+WHERE
+    constraint_schema = 'cwrona2assign2db'
+        AND referenced_table_name = 'doctor'
+        AND delete_rule = 'CASCADE';
+
+USE cwrona2assign2db;
+
+CREATE VIEW treatedByHead
+AS
+SELECT patient.first, patient.last, doctor.last AS docLast, hospital.name
+FROM patient
+INNER JOIN has ON has.ohip = patient.ohip
+INNER JOIN doctor ON doctor.license = has.license
+INNER JOIN hospital ON hospital.head = doctor.license
+WHERE hospital.headStart > '1995-12-31';
+
+SELECT * FROM treatedByHead;
+
+SELECT * FROM doctor;
+SELECT * FROM has;
+
+DELETE FROM doctor WHERE last = 'Clooney';
+
+USE information_schema;
+
+SELECT 
+    table_name
+FROM
+    referential_constraints
+WHERE
+    constraint_schema = 'cwrona2assign2db'
+        AND referenced_table_name = 'doctor'
+        AND delete_rule = 'CASCADE';
+
+USE cwrona2assign2db;
+
+SELECT * FROM doctor;
+SELECT * FROM has;
+
+DELETE FROM doctor WHERE specialty = 'surgeon';
+
+SELECT * FROM doctor;
+
+-- The delete command deleted the rows because cascading delete was set using the ON DELETE CASCADE command, triggering the deletion of related rows.
+
+

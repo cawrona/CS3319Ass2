@@ -1,0 +1,110 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+SHOW databases
+--------------
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| cwrona2assign2db   |
+| mysql              |
+| performance_schema |
+| vetoffice          |
++--------------------+
+5 rows in set (0.01 sec)
+
+--------------
+DROP DATABASE IF EXISTS cwrona2assign2db
+--------------
+
+Query OK, 5 rows affected (0.12 sec)
+
+--------------
+CREATE DATABASE cwrona2assign2db
+--------------
+
+Query OK, 1 row affected (0.00 sec)
+
+--------------
+GRANT USAGE ON *.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+DROP USER 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost'
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+FLUSH PRIVILEGES
+--------------
+
+Query OK, 0 rows affected (0.00 sec)
+
+--------------
+SHOW TABLES
+--------------
+
+Empty set (0.00 sec)
+
+--------------
+CREATE TABLE hospital (hospitalCode VARCHAR(3), name VARCHAR(20), city VARCHAR(20), province VARCHAR(2), beds INT NOT NULL, head VARCHAR(4), headStart DATE, PRIMARY KEY (hospitalCode))
+--------------
+
+Query OK, 0 rows affected (0.06 sec)
+
+--------------
+CREATE TABLE patient (ohip INT(9), first VARCHAR(20), last VARCHAR(20), PRIMARY KEY (ohip))
+--------------
+
+Query OK, 0 rows affected (0.05 sec)
+
+--------------
+CREATE TABLE doctor (license VARCHAR(4), first VARCHAR(20), last VARCHAR(20), specialty VARCHAR(30), licenseDate DATE, hospitalCode VARCHAR(3), PRIMARY KEY (license), FOREIGN KEY (hospitalCode) REFERENCES hospital(hospitalCode) ON DELETE CASCADE)
+--------------
+
+Query OK, 0 rows affected (0.19 sec)
+
+--------------
+CREATE TABLE has (license VARCHAR(4), ohip INT(9), FOREIGN KEY (license) REFERENCES doctor(license) ON DELETE CASCADE, FOREIGN KEY (ohip) REFERENCES patient(ohip) ON DELETE CASCADE, PRIMARY KEY (ohip, license))
+--------------
+
+Query OK, 0 rows affected (0.18 sec)
+
+--------------
+ALTER TABLE hospital ADD FOREIGN KEY (head) REFERENCES doctor(license) ON DELETE SET NULL
+--------------
+
+Query OK, 0 rows affected (0.13 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+--------------
+SHOW TABLES
+--------------
+
++----------------------------+
+| Tables_in_cwrona2assign2db |
++----------------------------+
+| doctor                     |
+| has                        |
+| hospital                   |
+| patient                    |
++----------------------------+
+4 rows in set (0.00 sec)
+
+Bye

@@ -1,0 +1,65 @@
+-- PART 3
+
+-- Q1
+SELECT last FROM patient;
+
+-- Q2
+SELECT DISTINCT last FROM patient;
+
+-- Q3
+SELECT * FROM doctor ORDER BY last;
+
+-- Q4
+SELECT name, hospitalCode FROM hospital WHERE beds > 1500;
+
+-- Q5
+SELECT last, first FROM doctor WHERE hospitalCode = (SELECT hospitalCode FROM hospital WHERE name = 'St. Joeseph');
+
+-- Q6
+SELECT first, last FROM patient WHERE last LIKE 'G%';
+
+-- Q7
+SELECT patient.first, patient.last
+FROM patient
+INNER JOIN has ON patient.ohip = has.ohip
+INNER JOIN doctor ON has.license = doctor.license
+WHERE doctor.last = 'Clooney';
+
+-- Q8
+SELECT hospital.name, hospital.city, doctor.last
+FROM hospital
+INNER JOIN doctor ON doctor.license = hospital.head;
+
+-- Q9
+SELECT CONCAT ("Total Number of Beds: ", (SELECT SUM(beds) FROM hospital)) AS ''; 
+
+-- Q10
+SELECT patient.first, doctor.first
+FROM patient
+INNER JOIN has ON patient.ohip = has.ohip
+INNER JOIN doctor ON has.license = doctor.license
+INNER JOIN hospital ON hospital.head = doctor.license;
+
+-- Q11
+SELECT doctor.last, doctor.first
+FROM doctor
+INNER JOIN hospital ON hospital.hospitalCode = doctor.hospitalCode
+WHERE doctor.specialty = 'surgeon' AND hospital.name = 'Victoria';
+
+-- Q12
+SELECT doctor.first
+FROM doctor
+WHERE doctor.license not in (SELECT license FROM has);
+
+-- Q13
+SELECT doctor.last, doctor.first
+FROM doctor
+INNER JOIN has ON has.license = doctor.license
+GROUP BY has.license
+HAVING COUNT(has.license) > 1;
+
+
+
+
+
+

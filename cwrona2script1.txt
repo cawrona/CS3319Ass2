@@ -1,0 +1,24 @@
+-- Part1
+
+-- build the database
+SHOW databases;
+DROP DATABASE IF EXISTS cwrona2assign2db;
+CREATE DATABASE cwrona2assign2db;
+USE cwrona2assign2db;
+
+-- ta priveleges
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+
+-- create the tables
+SHOW TABLES;
+
+CREATE TABLE hospital (hospitalCode VARCHAR(3), name VARCHAR(20), city VARCHAR(20), province VARCHAR(2), beds INT NOT NULL, head VARCHAR(4), headStart DATE, PRIMARY KEY (hospitalCode));
+CREATE TABLE patient (ohip INT(9), first VARCHAR(20), last VARCHAR(20), PRIMARY KEY (ohip));
+CREATE TABLE doctor (license VARCHAR(4), first VARCHAR(20), last VARCHAR(20), specialty VARCHAR(30), licenseDate DATE, hospitalCode VARCHAR(3), PRIMARY KEY (license), FOREIGN KEY (hospitalCode) REFERENCES hospital(hospitalCode) ON DELETE CASCADE);
+CREATE TABLE has (license VARCHAR(4), ohip INT(9), FOREIGN KEY (license) REFERENCES doctor(license) ON DELETE CASCADE, FOREIGN KEY (ohip) REFERENCES patient(ohip) ON DELETE CASCADE, PRIMARY KEY (ohip, license));
+ALTER TABLE hospital ADD FOREIGN KEY (head) REFERENCES doctor(license) ON DELETE SET NULL;
+SHOW TABLES;

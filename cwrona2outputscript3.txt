@@ -1,0 +1,86 @@
+Warning: Using a password on the command line interface can be insecure.
+ERROR 1046 (3D000) at line 4: No database selected
+ERROR 1046 (3D000) at line 7: No database selected
+ERROR 1046 (3D000) at line 10: No database selected
+ERROR 1046 (3D000) at line 13: No database selected
+ERROR 1046 (3D000) at line 16: No database selected
+ERROR 1046 (3D000) at line 19: No database selected
+ERROR 1046 (3D000) at line 22: No database selected
+ERROR 1046 (3D000) at line 29: No database selected
+ERROR 1046 (3D000) at line 34: No database selected
+ERROR 1046 (3D000) at line 37: No database selected
+ERROR 1046 (3D000) at line 44: No database selected
+ERROR 1046 (3D000) at line 50: No database selected
+ERROR 1046 (3D000) at line 55: No database selected
+--------------
+SELECT last FROM patient
+--------------
+
+--------------
+SELECT DISTINCT last FROM patient
+--------------
+
+--------------
+SELECT * FROM doctor ORDER BY last
+--------------
+
+--------------
+SELECT name, hospitalCode FROM hospital WHERE beds > 1500
+--------------
+
+--------------
+SELECT last, first FROM doctor WHERE hospitalCode = (SELECT hospitalCode FROM hospital WHERE name = 'St. Joeseph')
+--------------
+
+--------------
+SELECT first, last FROM patient WHERE last LIKE 'G%'
+--------------
+
+--------------
+SELECT patient.first, patient.last
+FROM patient
+INNER JOIN has ON patient.ohip = has.ohip
+INNER JOIN doctor ON has.license = doctor.license
+WHERE doctor.last = 'Clooney'
+--------------
+
+--------------
+SELECT hospital.name, hospital.city, doctor.last
+FROM hospital
+INNER JOIN doctor ON doctor.license = hospital.head
+--------------
+
+--------------
+SELECT CONCAT ("Total Number of Beds: ", (SELECT SUM(beds) FROM hospital)) AS ''
+--------------
+
+--------------
+SELECT patient.first, doctor.first
+FROM patient
+INNER JOIN has ON patient.ohip = has.ohip
+INNER JOIN doctor ON has.license = doctor.license
+INNER JOIN hospital ON hospital.head = doctor.license
+--------------
+
+--------------
+SELECT doctor.last, doctor.first
+FROM doctor
+INNER JOIN hospital ON hospital.hospitalCode = doctor.hospitalCode
+WHERE doctor.specialty = 'surgeon' AND hospital.name = 'Victoria'
+--------------
+
+--------------
+SELECT doctor.first
+FROM doctor
+WHERE doctor.license not in (SELECT license FROM has)
+--------------
+
+--------------
+SELECT doctor.last, doctor.first
+FROM doctor
+INNER JOIN has ON has.license = doctor.license
+GROUP BY has.license
+HAVING COUNT(has.license) > 1
+--------------
+
+Bye
