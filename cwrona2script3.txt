@@ -1,4 +1,5 @@
 -- PART 3
+USE cwrona2assign2db;
 
 -- Q1
 SELECT last FROM patient;

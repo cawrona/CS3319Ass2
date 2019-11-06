@@ -9,14 +9,14 @@ Empty set (0.00 sec)
 LOAD DATA INFILE '/var/lib/mysql-files/loaddata.txt'  INTO TABLE patient FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n'
 --------------
 
-Query OK, 6 rows affected (0.11 sec)
+Query OK, 6 rows affected (0.01 sec)
 Records: 6  Deleted: 0  Skipped: 0  Warnings: 0
 
 --------------
 INSERT INTO patient VALUES ('250849349', 'Christian', 'Wrona')
 --------------
 
-Query OK, 1 row affected (0.02 sec)
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 SELECT * FROM patient
@@ -45,7 +45,7 @@ Empty set (0.00 sec)
 INSERT INTO doctor (license, first, last, specialty, licenseDate) VALUES ('RD34', 'Bernie', 'Kavorikian', 'Urologist', '1980-09-09')
 --------------
 
-Query OK, 1 row affected (0.00 sec)
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 INSERT INTO doctor (license, first, last, specialty, licenseDate) VALUES ('GD56', 'Joey', 'Shabado', 'Podiatrist', '1960-06-24')
@@ -63,13 +63,13 @@ Query OK, 1 row affected (0.02 sec)
 INSERT INTO doctor (license, first, last, specialty, licenseDate) VALUES ('YT67', 'Ben', 'Spock', 'Pediatrician', '1955-02-20')
 --------------
 
-Query OK, 1 row affected (0.01 sec)
+Query OK, 1 row affected (0.00 sec)
 
 --------------
 INSERT INTO doctor (license, first, last, specialty, licenseDate) VALUES ('JK78', 'Mandy', 'Webster', 'Surgeon', '1990-08-08')
 --------------
 
-Query OK, 1 row affected (0.00 sec)
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 INSERT INTO doctor (license, first, last, specialty, licenseDate) VALUES ('SE66', 'Colleen', 'Aziz', 'Surgeon', '1989-08-24')
@@ -81,7 +81,7 @@ Query OK, 1 row affected (0.01 sec)
 INSERT INTO doctor (license, first, last, specialty, licenseDate) VALUES ('XX00', 'Joe', 'Rogan', 'Surgeon', '1985-08-25')
 --------------
 
-Query OK, 1 row affected (0.01 sec)
+Query OK, 1 row affected (0.00 sec)
 
 --------------
 SELECT * FROM doctor
@@ -104,7 +104,7 @@ SELECT * FROM doctor
 SELECT * FROM hospital
 --------------
 
-Empty set (0.00 sec)
+Empty set (0.01 sec)
 
 --------------
 INSERT INTO hospital VALUES ('BBC', 'St. Joeseph', 'London', 'ON', '1000', 'GD56', '1999-09-10')
@@ -159,7 +159,7 @@ Query OK, 1 row affected (0.01 sec)
 INSERT INTO has VALUES ('JK78', '444555666')
 --------------
 
-Query OK, 1 row affected (0.02 sec)
+Query OK, 1 row affected (0.08 sec)
 
 --------------
 INSERT INTO has VALUES ('JK78', '111222333')
@@ -171,19 +171,19 @@ Query OK, 1 row affected (0.01 sec)
 INSERT INTO has VALUES ('SE66', '111222333')
 --------------
 
-Query OK, 1 row affected (0.00 sec)
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 INSERT INTO has VALUES ('YT67', '111222333')
 --------------
 
-Query OK, 1 row affected (0.01 sec)
+Query OK, 1 row affected (0.00 sec)
 
 --------------
 INSERT INTO has VALUES ('GD56', '333444555')
 --------------
 
-Query OK, 1 row affected (0.00 sec)
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 INSERT INTO has VALUES ('GD56', '667766777')
@@ -201,19 +201,19 @@ Query OK, 1 row affected (0.01 sec)
 INSERT INTO has VALUES ('JK78', '667766777')
 --------------
 
-Query OK, 1 row affected (0.00 sec)
+Query OK, 1 row affected (0.01 sec)
 
 --------------
 INSERT INTO has VALUES ('YT67', '111222111')
 --------------
 
-Query OK, 1 row affected (0.01 sec)
+Query OK, 1 row affected (0.02 sec)
 
 --------------
 INSERT INTO has VALUES ('XX00', '250849349')
 --------------
 
-Query OK, 1 row affected (0.01 sec)
+Query OK, 1 row affected (0.00 sec)
 
 --------------
 SELECT * FROM has
@@ -260,7 +260,7 @@ SET hospitalCode = 'BBC'
 WHERE license = 'RD34' OR license = 'GD56' OR license = 'JK78'
 --------------
 
-Query OK, 3 rows affected (0.00 sec)
+Query OK, 3 rows affected (0.01 sec)
 Rows matched: 3  Changed: 3  Warnings: 0
 
 --------------
@@ -269,7 +269,7 @@ SET hospitalCode = 'ABC'
 WHERE license = 'SE66' OR license = 'XX00'
 --------------
 
-Query OK, 2 rows affected (0.00 sec)
+Query OK, 2 rows affected (0.03 sec)
 Rows matched: 2  Changed: 2  Warnings: 0
 
 --------------
@@ -321,7 +321,7 @@ SET last = 'Brown'
 WHERE ohip = '111222111'
 --------------
 
-Query OK, 1 row affected (0.00 sec)
+Query OK, 1 row affected (0.01 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
 --------------
@@ -369,7 +369,7 @@ SET license = (SELECT license FROM doctor WHERE last = 'Clooney')
 WHERE  license = (SELECT license FROM doctor WHERE last = 'Spock')
 --------------
 
-Query OK, 3 rows affected (0.01 sec)
+Query OK, 3 rows affected (0.00 sec)
 Rows matched: 3  Changed: 3  Warnings: 0
 
 --------------

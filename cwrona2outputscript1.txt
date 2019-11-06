@@ -12,13 +12,13 @@ SHOW databases
 | performance_schema |
 | vetoffice          |
 +--------------------+
-5 rows in set (0.01 sec)
+5 rows in set (0.00 sec)
 
 --------------
 DROP DATABASE IF EXISTS cwrona2assign2db
 --------------
 
-Query OK, 5 rows affected (0.12 sec)
+Query OK, 5 rows affected (0.27 sec)
 
 --------------
 CREATE DATABASE cwrona2assign2db
@@ -66,7 +66,7 @@ Empty set (0.00 sec)
 CREATE TABLE hospital (hospitalCode VARCHAR(3), name VARCHAR(20), city VARCHAR(20), province VARCHAR(2), beds INT NOT NULL, head VARCHAR(4), headStart DATE, PRIMARY KEY (hospitalCode))
 --------------
 
-Query OK, 0 rows affected (0.06 sec)
+Query OK, 0 rows affected (0.07 sec)
 
 --------------
 CREATE TABLE patient (ohip INT(9), first VARCHAR(20), last VARCHAR(20), PRIMARY KEY (ohip))
@@ -78,13 +78,13 @@ Query OK, 0 rows affected (0.05 sec)
 CREATE TABLE doctor (license VARCHAR(4), first VARCHAR(20), last VARCHAR(20), specialty VARCHAR(30), licenseDate DATE, hospitalCode VARCHAR(3), PRIMARY KEY (license), FOREIGN KEY (hospitalCode) REFERENCES hospital(hospitalCode) ON DELETE CASCADE)
 --------------
 
-Query OK, 0 rows affected (0.19 sec)
+Query OK, 0 rows affected (0.09 sec)
 
 --------------
 CREATE TABLE has (license VARCHAR(4), ohip INT(9), FOREIGN KEY (license) REFERENCES doctor(license) ON DELETE CASCADE, FOREIGN KEY (ohip) REFERENCES patient(ohip) ON DELETE CASCADE, PRIMARY KEY (ohip, license))
 --------------
 
-Query OK, 0 rows affected (0.18 sec)
+Query OK, 0 rows affected (0.21 sec)
 
 --------------
 ALTER TABLE hospital ADD FOREIGN KEY (head) REFERENCES doctor(license) ON DELETE SET NULL

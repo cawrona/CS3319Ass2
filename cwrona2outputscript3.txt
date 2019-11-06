@@ -1,40 +1,90 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1046 (3D000) at line 4: No database selected
-ERROR 1046 (3D000) at line 7: No database selected
-ERROR 1046 (3D000) at line 10: No database selected
-ERROR 1046 (3D000) at line 13: No database selected
-ERROR 1046 (3D000) at line 16: No database selected
-ERROR 1046 (3D000) at line 19: No database selected
-ERROR 1046 (3D000) at line 22: No database selected
-ERROR 1046 (3D000) at line 29: No database selected
-ERROR 1046 (3D000) at line 34: No database selected
-ERROR 1046 (3D000) at line 37: No database selected
-ERROR 1046 (3D000) at line 44: No database selected
-ERROR 1046 (3D000) at line 50: No database selected
-ERROR 1046 (3D000) at line 55: No database selected
 --------------
 SELECT last FROM patient
 --------------
+
++--------+
+| last   |
++--------+
+| Gellar |
+| Brown  |
+| Green  |
+| Wrona  |
+| Gellar |
+| Gellar |
+| Bing   |
++--------+
+7 rows in set (0.00 sec)
 
 --------------
 SELECT DISTINCT last FROM patient
 --------------
 
++--------+
+| last   |
++--------+
+| Gellar |
+| Brown  |
+| Green  |
+| Wrona  |
+| Bing   |
++--------+
+5 rows in set (0.00 sec)
+
 --------------
 SELECT * FROM doctor ORDER BY last
 --------------
+
++---------+---------+------------+--------------+-------------+--------------+
+| license | first   | last       | specialty    | licenseDate | hospitalCode |
++---------+---------+------------+--------------+-------------+--------------+
+| SE66    | Colleen | Aziz       | Surgeon      | 1989-08-24  | ABC          |
+| HT45    | Ross    | Clooney    | Surgeon      | 1987-06-20  | DDE          |
+| RD34    | Bernie  | Kavorikian | Urologist    | 1980-09-09  | BBC          |
+| XX00    | Joe     | Rogan      | Surgeon      | 1985-08-25  | ABC          |
+| GD56    | Joey    | Shabado    | Podiatrist   | 1960-06-24  | BBC          |
+| YT67    | Ben     | Spock      | Pediatrician | 1955-02-20  | DDE          |
+| JK78    | Mandy   | Webster    | Surgeon      | 1990-08-08  | BBC          |
++---------+---------+------------+--------------+-------------+--------------+
+7 rows in set (0.00 sec)
 
 --------------
 SELECT name, hospitalCode FROM hospital WHERE beds > 1500
 --------------
 
++----------+--------------+
+| name     | hospitalCode |
++----------+--------------+
+| Victoria | ABC          |
++----------+--------------+
+1 row in set (0.00 sec)
+
 --------------
 SELECT last, first FROM doctor WHERE hospitalCode = (SELECT hospitalCode FROM hospital WHERE name = 'St. Joeseph')
 --------------
 
++------------+--------+
+| last       | first  |
++------------+--------+
+| Shabado    | Joey   |
+| Webster    | Mandy  |
+| Kavorikian | Bernie |
++------------+--------+
+3 rows in set (0.00 sec)
+
 --------------
 SELECT first, last FROM patient WHERE last LIKE 'G%'
 --------------
+
++---------+--------+
+| first   | last   |
++---------+--------+
+| Bill    | Gellar |
+| Jon     | Green  |
+| Colleen | Gellar |
+| Sean    | Gellar |
++---------+--------+
+4 rows in set (0.00 sec)
 
 --------------
 SELECT patient.first, patient.last
@@ -44,15 +94,41 @@ INNER JOIN doctor ON has.license = doctor.license
 WHERE doctor.last = 'Clooney'
 --------------
 
++--------+--------+
+| first  | last   |
++--------+--------+
+| Suzi   | Brown  |
+| Jon    | Green  |
+| Sean   | Gellar |
+| Scotty | Bing   |
++--------+--------+
+4 rows in set (0.00 sec)
+
 --------------
 SELECT hospital.name, hospital.city, doctor.last
 FROM hospital
 INNER JOIN doctor ON doctor.license = hospital.head
 --------------
 
++-------------+----------+---------+
+| name        | city     | last    |
++-------------+----------+---------+
+| Victoria    | London   | Spock   |
+| St. Joeseph | London   | Shabado |
+| Victoria    | Victoria | Aziz    |
++-------------+----------+---------+
+3 rows in set (0.00 sec)
+
 --------------
 SELECT CONCAT ("Total Number of Beds: ", (SELECT SUM(beds) FROM hospital)) AS ''
 --------------
+
++----------------------------+
+|                            |
++----------------------------+
+| Total Number of Beds: 3800 |
++----------------------------+
+1 row in set (0.00 sec)
 
 --------------
 SELECT patient.first, doctor.first
@@ -62,6 +138,16 @@ INNER JOIN doctor ON has.license = doctor.license
 INNER JOIN hospital ON hospital.head = doctor.license
 --------------
 
++---------+---------+
+| first   | first   |
++---------+---------+
+| Bill    | Joey    |
+| Colleen | Joey    |
+| Scotty  | Joey    |
+| Jon     | Colleen |
++---------+---------+
+4 rows in set (0.00 sec)
+
 --------------
 SELECT doctor.last, doctor.first
 FROM doctor
@@ -69,11 +155,28 @@ INNER JOIN hospital ON hospital.hospitalCode = doctor.hospitalCode
 WHERE doctor.specialty = 'surgeon' AND hospital.name = 'Victoria'
 --------------
 
++---------+---------+
+| last    | first   |
++---------+---------+
+| Clooney | Ross    |
+| Aziz    | Colleen |
+| Rogan   | Joe     |
++---------+---------+
+3 rows in set (0.00 sec)
+
 --------------
 SELECT doctor.first
 FROM doctor
 WHERE doctor.license not in (SELECT license FROM has)
 --------------
+
++--------+
+| first  |
++--------+
+| Bernie |
+| Ben    |
++--------+
+2 rows in set (0.00 sec)
 
 --------------
 SELECT doctor.last, doctor.first
@@ -82,5 +185,14 @@ INNER JOIN has ON has.license = doctor.license
 GROUP BY has.license
 HAVING COUNT(has.license) > 1
 --------------
+
++---------+-------+
+| last    | first |
++---------+-------+
+| Shabado | Joey  |
+| Clooney | Ross  |
+| Webster | Mandy |
++---------+-------+
+3 rows in set (0.00 sec)
 
 Bye

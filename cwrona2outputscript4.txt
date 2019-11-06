@@ -1,8 +1,9 @@
 Warning: Using a password on the command line interface can be insecure.
-ERROR 1046 (3D000) at line 4: No database selected
 --------------
 DELETE FROM doctor WHERE licenseDate < '1965-01-01'
 --------------
+
+Query OK, 2 rows affected (0.02 sec)
 
 --------------
 SELECT 
@@ -39,31 +40,22 @@ Query OK, 0 rows affected (0.01 sec)
 SELECT * FROM treatedByHead
 --------------
 
-+---------+--------+---------+-------------+
-| first   | last   | docLast | name        |
-+---------+--------+---------+-------------+
-| Bill    | Gellar | Shabado | St. Joeseph |
-| Colleen | Gellar | Shabado | St. Joeseph |
-| Scotty  | Bing   | Shabado | St. Joeseph |
-+---------+--------+---------+-------------+
-3 rows in set (0.00 sec)
+Empty set (0.00 sec)
 
 --------------
 SELECT * FROM doctor
 --------------
 
-+---------+---------+------------+--------------+-------------+--------------+
-| license | first   | last       | specialty    | licenseDate | hospitalCode |
-+---------+---------+------------+--------------+-------------+--------------+
-| GD56    | Joey    | Shabado    | Podiatrist   | 1960-06-24  | BBC          |
-| HT45    | Ross    | Clooney    | Surgeon      | 1987-06-20  | DDE          |
-| JK78    | Mandy   | Webster    | Surgeon      | 1990-08-08  | BBC          |
-| RD34    | Bernie  | Kavorikian | Urologist    | 1980-09-09  | BBC          |
-| SE66    | Colleen | Aziz       | Surgeon      | 1989-08-24  | ABC          |
-| XX00    | Joe     | Rogan      | Surgeon      | 1985-08-25  | ABC          |
-| YT67    | Ben     | Spock      | Pediatrician | 1955-02-20  | DDE          |
-+---------+---------+------------+--------------+-------------+--------------+
-7 rows in set (0.00 sec)
++---------+---------+------------+-----------+-------------+--------------+
+| license | first   | last       | specialty | licenseDate | hospitalCode |
++---------+---------+------------+-----------+-------------+--------------+
+| HT45    | Ross    | Clooney    | Surgeon   | 1987-06-20  | DDE          |
+| JK78    | Mandy   | Webster    | Surgeon   | 1990-08-08  | BBC          |
+| RD34    | Bernie  | Kavorikian | Urologist | 1980-09-09  | BBC          |
+| SE66    | Colleen | Aziz       | Surgeon   | 1989-08-24  | ABC          |
+| XX00    | Joe     | Rogan      | Surgeon   | 1985-08-25  | ABC          |
++---------+---------+------------+-----------+-------------+--------------+
+5 rows in set (0.00 sec)
 
 --------------
 SELECT * FROM has
@@ -72,9 +64,6 @@ SELECT * FROM has
 +---------+-----------+
 | license | ohip      |
 +---------+-----------+
-| GD56    | 110112113 |
-| GD56    | 333444555 |
-| GD56    | 667766777 |
 | HT45    | 111222111 |
 | HT45    | 111222333 |
 | HT45    | 444555666 |
@@ -85,7 +74,7 @@ SELECT * FROM has
 | SE66    | 111222333 |
 | XX00    | 250849349 |
 +---------+-----------+
-12 rows in set (0.00 sec)
+9 rows in set (0.00 sec)
 
 --------------
 DELETE FROM doctor WHERE last = 'Clooney'
@@ -115,17 +104,15 @@ WHERE
 SELECT * FROM doctor
 --------------
 
-+---------+---------+------------+--------------+-------------+--------------+
-| license | first   | last       | specialty    | licenseDate | hospitalCode |
-+---------+---------+------------+--------------+-------------+--------------+
-| GD56    | Joey    | Shabado    | Podiatrist   | 1960-06-24  | BBC          |
-| JK78    | Mandy   | Webster    | Surgeon      | 1990-08-08  | BBC          |
-| RD34    | Bernie  | Kavorikian | Urologist    | 1980-09-09  | BBC          |
-| SE66    | Colleen | Aziz       | Surgeon      | 1989-08-24  | ABC          |
-| XX00    | Joe     | Rogan      | Surgeon      | 1985-08-25  | ABC          |
-| YT67    | Ben     | Spock      | Pediatrician | 1955-02-20  | DDE          |
-+---------+---------+------------+--------------+-------------+--------------+
-6 rows in set (0.00 sec)
++---------+---------+------------+-----------+-------------+--------------+
+| license | first   | last       | specialty | licenseDate | hospitalCode |
++---------+---------+------------+-----------+-------------+--------------+
+| JK78    | Mandy   | Webster    | Surgeon   | 1990-08-08  | BBC          |
+| RD34    | Bernie  | Kavorikian | Urologist | 1980-09-09  | BBC          |
+| SE66    | Colleen | Aziz       | Surgeon   | 1989-08-24  | ABC          |
+| XX00    | Joe     | Rogan      | Surgeon   | 1985-08-25  | ABC          |
++---------+---------+------------+-----------+-------------+--------------+
+4 rows in set (0.00 sec)
 
 --------------
 SELECT * FROM has
@@ -134,34 +121,29 @@ SELECT * FROM has
 +---------+-----------+
 | license | ohip      |
 +---------+-----------+
-| GD56    | 110112113 |
-| GD56    | 333444555 |
-| GD56    | 667766777 |
 | JK78    | 111222333 |
 | JK78    | 444555666 |
 | JK78    | 667766777 |
 | SE66    | 111222333 |
 | XX00    | 250849349 |
 +---------+-----------+
-8 rows in set (0.00 sec)
+5 rows in set (0.00 sec)
 
 --------------
 DELETE FROM doctor WHERE specialty = 'surgeon'
 --------------
 
-Query OK, 3 rows affected (0.01 sec)
+Query OK, 3 rows affected (0.02 sec)
 
 --------------
 SELECT * FROM doctor
 --------------
 
-+---------+--------+------------+--------------+-------------+--------------+
-| license | first  | last       | specialty    | licenseDate | hospitalCode |
-+---------+--------+------------+--------------+-------------+--------------+
-| GD56    | Joey   | Shabado    | Podiatrist   | 1960-06-24  | BBC          |
-| RD34    | Bernie | Kavorikian | Urologist    | 1980-09-09  | BBC          |
-| YT67    | Ben    | Spock      | Pediatrician | 1955-02-20  | DDE          |
-+---------+--------+------------+--------------+-------------+--------------+
-3 rows in set (0.00 sec)
++---------+--------+------------+-----------+-------------+--------------+
+| license | first  | last       | specialty | licenseDate | hospitalCode |
++---------+--------+------------+-----------+-------------+--------------+
+| RD34    | Bernie | Kavorikian | Urologist | 1980-09-09  | BBC          |
++---------+--------+------------+-----------+-------------+--------------+
+1 row in set (0.00 sec)
 
 Bye

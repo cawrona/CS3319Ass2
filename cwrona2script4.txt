@@ -1,5 +1,5 @@
 -- PART 4
-
+USE cwrona2assign2db;
 
 DELETE FROM doctor WHERE licenseDate < '1965-01-01';
 	
